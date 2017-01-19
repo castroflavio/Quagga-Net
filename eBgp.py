@@ -4,7 +4,7 @@ from mininet.topo import Topo
 from mininet.net import Mininet
 from mininet.cli import CLI
 from mininet.log import setLogLevel, info
-from mininet.node import RemoteController, OVSSwitch, Node
+from mininet.node import RemoteController, OVSBridge, Node
 from sdnip import BgpRouter, SdnipHost
 
 
@@ -18,7 +18,7 @@ class BGPTopo(Topo):
         # will be attached to this switch.
 
         # IX fabric
-        s1 = self.addSwitch('s1')
+        s1 = self.addSwitch('s1', cls=OVSBridge)
 
         # Each Peer consists of 1 quagga router PLUS
         # 1 host per network advertised behind quagga
@@ -73,7 +73,7 @@ if __name__ == "__main__":
     setLogLevel('info')
     topo = BGPTopo()
 
-    net = Mininet(topo=topo, controller=RemoteController, switch=OVSSwitch)
+    net = Mininet(topo=topo, switch=OVSBridge)
 
     net.start()
 
