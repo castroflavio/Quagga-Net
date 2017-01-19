@@ -1,0 +1,18 @@
+---
+###########################################################################
+# This file contains the global vars used to configured VM and containers #
+###########################################################################
+# Basic packages to be installed
+basic_packages:
+  - "bridge-utils"
+  - "git"
+  - "git-review"
+  - "lxc"
+  - "lxc-dev"
+  - "python-dev"
+  - "python-pip"
+  - "wireshark"
+  - "quagga"
+
+
+
