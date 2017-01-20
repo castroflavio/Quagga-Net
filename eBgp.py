@@ -5,6 +5,7 @@ from mininet.net import Mininet
 from mininet.cli import CLI
 from mininet.log import setLogLevel, info
 from mininet.node import RemoteController, OVSBridge, Node
+from mininet.link import Intf
 from sdnip import BgpRouter, SdnipHost
 
 
@@ -22,12 +23,12 @@ class BGPTopo(Topo):
 
         # Each Peer consists of 1 quagga router PLUS
         # 1 host per network advertised behind quagga
-        peers=[{'address':'192.168.100.20/24', 'as':200}]
+        peers=[{'address':'192.168.100.20', 'as':200}]
         self.addPeer(s1, name='r1', port=2, mac='08:00:27:89:3b:9f', ip='192.168.100.10/24',
                             networks=['100.0.0.0/24', '110.0.0.0/24'], asn=100, peers=peers)
 
-        peers=[{'address':'192.168.100.10/24', 'as':100}]
-        self.addPeer(s1, name='r2', port=3, mac='08:00:27:92:18:1f', ip='192.168.100.20/24',
+        peers=[{'address':'192.168.100.10', 'as':100}]
+        self.addPeer(s1, name='r2', port=1, mac='08:00:27:92:18:1f', ip='192.168.100.20/24',
                             networks=['140.0.0.0/24', '150.0.0.0/24'], asn=200, peers=peers)
 
     def addPeer(self, bridge, name, port, mac, ip, networks, asn, peers):
@@ -74,7 +75,10 @@ if __name__ == "__main__":
     topo = BGPTopo()
 
     net = Mininet(topo=topo, switch=OVSBridge)
-
+    s1 = net.switches[0]
+    intfName = 'enp0s8'
+    info( '*** Connecting to hw intf: %s' % intfName )
+    _intf = Intf(intfName, node=s1, port=3)
     net.start()
 
     CLI(net)

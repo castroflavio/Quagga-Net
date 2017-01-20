@@ -120,7 +120,6 @@ class BgpRouter(Router):
 
     def config(self, **kwargs):
         super(BgpRouter, self).config(**kwargs)
-
         self.cmd('%s/zebra -d -f %s -z %s -i %s'
                  % (BgpRouter.binDir, self.zebraConfFile, self.socket, self.zebraPidFile))
         while True:
@@ -133,8 +132,9 @@ class BgpRouter(Router):
                 #print' ERROR: ' + repr(e)
                 time.sleep(.1)
         #print 'zebra ready'
-        self.cmd('%s/bgpd -d -f %s -z %s -i %s'
-                 % (BgpRouter.binDir, self.quaggaConfFile, self.socket, self.quaggaPidFile))
+        cmd = '%s/bgpd -d -f %s -z %s -i %s' % (BgpRouter.binDir, self.quaggaConfFile, self.socket, self.quaggaPidFile)
+        #print cmd
+        self.cmd(cmd)
 
     def generateConfig(self):
         self.generateQuagga()

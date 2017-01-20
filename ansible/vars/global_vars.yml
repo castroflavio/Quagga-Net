@@ -6,9 +6,6 @@
 basic_packages:
   - "bridge-utils"
   - "git"
-  - "git-review"
-  - "lxc"
-  - "lxc-dev"
   - "python-dev"
   - "python-pip"
   - "wireshark"
