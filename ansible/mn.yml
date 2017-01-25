@@ -1,6 +1,7 @@
 ---
 #
 # Installs Mininet, Wireshark and the latest openflow.lua dissector plugin (Loxi version)
+#    - switch_config
 #
 - name: Include vars
   hosts: localhost

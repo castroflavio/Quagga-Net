@@ -99,9 +99,11 @@ class BgpRouter(Router):
                  runDir='/var/run/quagga', *args, **kwargs):
         super(BgpRouter, self).__init__(name, intfDict, **kwargs)
         
+        runDir= '%s/%s' % (runDir, name)
         self.runDir = runDir
         self.routes = routes
-        
+        #print 'sudo -u quagga mkdir %s' % self.runDir
+        self.cmd('sudo -u quagga mkdir %s' % self.runDir)
         if quaggaConfFile is not None:
             self.quaggaConfFile = quaggaConfFile
             self.zebraConfFile = zebraConfFile
@@ -120,8 +122,12 @@ class BgpRouter(Router):
 
     def config(self, **kwargs):
         super(BgpRouter, self).config(**kwargs)
+        #print 'About to start zebra'
+        #print '%s/zebra -d -f %s -z %s -i %s' % (BgpRouter.binDir, self.zebraConfFile, self.socket, self.zebraPidFile)
+
         self.cmd('%s/zebra -d -f %s -z %s -i %s'
                  % (BgpRouter.binDir, self.zebraConfFile, self.socket, self.zebraPidFile))
+
         while True:
             try:
                 s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) # @UndefinedVariable

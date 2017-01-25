@@ -6,10 +6,23 @@
 basic_packages:
   - "bridge-utils"
   - "git"
+  - "lxc"
+  - "lxc-dev"
   - "python-dev"
   - "python-pip"
   - "wireshark"
   - "quagga"
 
-
-
+quagga_bgp_configs:
+  - name: 'r1'
+    local_as: '65001'
+    neighboors:
+      - ip: '10.0.0.2'
+        remote_as: '65002'
+    router_id: '10.0.0.1'
+  - name: 'r2'
+    local_as: '65002'
+    neighboors:
+      - ip: '10.0.0.1'
+        remote_as: '65001'
+    router_id: '10.0.0.2'
