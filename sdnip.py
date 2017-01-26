@@ -135,7 +135,7 @@ class BgpRouter(Router):
                 #print 'connected - breaking'
                 break
             except Exception, e:
-                #print' ERROR: ' + repr(e)
+                print' ERROR: ' + repr(e)
                 time.sleep(.1)
         #print 'zebra ready'
         cmd = '%s/bgpd -d -f %s -z %s -i %s' % (BgpRouter.binDir, self.quaggaConfFile, self.socket, self.quaggaPidFile)
@@ -143,8 +143,9 @@ class BgpRouter(Router):
         self.cmd(cmd)
 
     def generateConfig(self):
-        self.generateQuagga()
-        self.generateZebra()
+        #self.generateQuagga()
+        #self.generateZebra()
+        return
         
     def generateQuagga(self):
         configFile = open(self.quaggaConfFile, 'w+')

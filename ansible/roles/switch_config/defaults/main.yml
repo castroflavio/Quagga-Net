@@ -1,18 +1,15 @@
-quagga_configs:
-  - name: 'daemons'
-    group: 'root'
-    mode: 'u=rw,g=r,o=r'
-    owner: 'root'
-  - name: 'debian.conf'
-    group: 'quagga'
-    mode: 'u=rw,g=r,o=r'
-    owner: 'quagga'
-  - name: 'vtysh.conf'
-    group: 'quagga'
-    mode: 'u=rw,g=r,o=r'
-    owner: 'quagga'
-  - name: 'Quagga.conf'
-    group: 'quaggavty'
-    owner: 'quagga'
-    mode: 'u=rw,g=r,o='
 quagga_root_dir: '/var/run/quagga'
+
+quagga_bgp_configs:
+  - name: 'r1'
+    local_as: '65001'
+    neighbors:
+      - ip: '10.0.0.2'
+        remote_as: '65002'
+    router_id: '10.0.0.1'
+  - name: 'r2'
+    local_as: '65002'
+    neighbors:
+      - ip: '10.0.0.1'
+        remote_as: '65001'
+    router_id: '10.0.0.2'
